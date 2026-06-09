@@ -2,7 +2,7 @@ import "./App.css";
 import SignInPage from "./pages/SignIn";
 import SignUpPage from "./pages/SignUp";
 import ErrorPage from "./pages/error";
-import DashboardPage from "./pages/dashboard";
+import DashboardPage from "./pages/Dashboard";
 import BalancePage from "./pages/Balance";
 import {createBrowserRouter,RouterProvider,Link,} from "react-router-dom";
 function App() {
