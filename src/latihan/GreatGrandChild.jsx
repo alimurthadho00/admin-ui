@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { CounterContext } from "../context/counterContext";
+import { CounterContext } from "../context/themeContext";
 
 // Component GreatGrandChild
 function GreatGrandChild() {

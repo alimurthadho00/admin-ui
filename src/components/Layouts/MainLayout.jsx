@@ -1,22 +1,25 @@
-import react, { useContext, useState} from "react";
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
-import { ThemeContext } from "../../context/themeContext";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
+import { AuthContext } from "../../context/authContext";
+import { logoutService } from "../../context/authContext";
 
 function MainLayout(props) {
   const { children } = props;
-    const themes = [
+
+  const themes = [
     { name: "theme-green", bgcolor: "bg-[#299D91]", color: "#299D91" },
     { name: "theme-blue", bgcolor: "bg-[#1E90FF]", color: "#1E90FF" },
     { name: "theme-purple", bgcolor: "bg-[#6A5ACD]", color: "#6A5ACD" },
     { name: "theme-pink", bgcolor: "bg-[#DB7093]", color: "#DB7093" },
     { name: "theme-brown", bgcolor: "bg-[#8B4513]", color: "#8B4513" },
-    ];
+  ];
 
-    const {theme, setTheme} = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const menu = [
     { id: 1, name: "Overview", icon: <Icon.Overview />, link: "/" },
@@ -32,88 +35,124 @@ function MainLayout(props) {
     { id: 6, name: "Goals", icon: <Icon.Goal />, link: "/goal" },
     { id: 7, name: "Settings", icon: <Icon.Setting />, link: "/setting" },
   ];
+  const { user, logout } = useContext(AuthContext);
+  const handleLogout = async () => {
+    try {
+      await logoutService();
+      logout();
+    } catch (err) {
+      console.error(err);
+      if (err.status === 401) {
+        logout();
+      }
+    }
+  };
+
   return (
-    <>
-      <div className={`flex min-h-screen ${theme.name}`}>
-        <aside className="bg-defaultBlack sm:w-64 text-special-bg2 flex flex-col justify-between px-7 py-12">
-          <div>
-            <div className="mb-10">
-              <Logo variant="secondary" />
-            </div>
-            <nav>
-              {menu.map((item) => (
-                <NavLink
-                  key={item.id}
-                  to={item.link}
-                  className={({ isActive }) =>
-                    `flex px-4 py-3 rounded-md hover:text-white hover:font-bold hover:scale-105 ${
-                      isActive
-                        ? "bg-primary text-white font-bold"
-                        : "hover:bg-special-bg3"
-                    }`
-                  }
-                >
-                  <div className="mx-auto sm:mx-0">{item.icon}</div>
-                  <div className="ms-3 hidden sm:block">{item.name}</div>
-                </NavLink>
-              ))}
-            </nav>
+    <div className={`flex min-h-screen ${theme.name}`}>
+      {/* Sidebar */}
+      <aside className="flex flex-col justify-between bg-defaultBlack text-special-bg2 w-28 sm:w-56 py-6 px-4">
+        <div>
+          <div className="mb-6">
+            <Logo variant="secondary" />
           </div>
-          	<div>
-            Themes
-            <div className="flex flex-col sm:flex-row gap-2 items-center">
-              {themes.map((t) => (
-                <div
-                  key={t.name}
-                  className={`${t.bgcolor} w-6 h-6 rounded-md cursor-pointer mb-2`}
-                  onClick={() => setTheme(t)}
-                ></div>
-              ))}
-            </div>
+
+          <nav>
+            {menu.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.link}
+                className={({ isActive }) =>
+                  `flex px-4 py-3 rounded-md transition-all duration-200 hover:text-white hover:font-bold hover:scale-105 ${
+                    isActive
+                      ? "bg-primary text-white font-bold"
+                      : "hover:bg-special-bg3"
+                  }`
+                }
+              >
+                <div className="mx-auto sm:mx-0">{item.icon}</div>
+                <div className="ms-3 hidden sm:block">{item.name}</div>
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+
+        {/* Theme Selector */}
+        <div>
+          <div className="mb-2">Themes</div>
+
+          <div className="flex flex-col sm:flex-row gap-2 items-center">
+            {themes.map((t) => (
+              <div
+                key={t.name}
+                className={`${t.bgcolor} w-6 h-6 rounded-md cursor-pointer`}
+                onClick={() => setTheme(t)}
+              />
+            ))}
           </div>
-          <div>
-            <NavLink to="/login">
-            <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
+        </div>
+
+        {/* Bottom Section */}
+        <div>
+          <div onClick={handleLogout} className="cursor-pointer">
+            <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md cursor-pointer">
               <div className="mx-auto sm:mx-0 text-primary">
                 <Icon.Logout />
               </div>
+
               <div className="ms-3 hidden sm:block">Logout</div>
             </div>
-            </NavLink>
-            <div className="border my-10 border-b-special-bg"></div>
-            <div className="flex justify-between items-center">
-              <div className="mx-auto sm:mx-0">Avatar</div>
-              <div className="hidden sm:block">
-                Username
-                <br />
-                View Profile
-              </div>
-              <div className="hidden sm:block">
-                <Icon.Detail size={15} />
-              </div>
+          </div>
+
+          <div className="border my-10 border-b-special-bg"></div>
+
+          <div className="flex justify-between items-center">
+            <div>Avatar</div>
+
+            <div className="hidden sm:block">
+              {user.name}
+              <br />
+              View Profile
+            </div>
+
+            <div className="hidden sm:block">
+              <Icon.Detail size={15} />
             </div>
           </div>
-        </aside>
-        <div className="bg-special-mainBg flex-1 flex flex-col">
-          <header className="border border-b border-gray-05 px-6 py-7 flex justify-between items-center">
-            <div className="flex items-center">
-              <div className="font-bold text-2xl me-6">Username</div>
-              <div className="text-gray-03 flex">
-                <Icon.ChevronRight size={20} />
-                <span>May 19, 2026</span>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <div className="me-10">
-                <NotificationsIcon className="text-primary scale-110" />
-              </div>
-              <Input backgroundColor="bg-white" border="border-white" />
-            </div>
-          </header>
-          <main className="flex-1 px-6 py-4">{children}</main>
         </div>
+      </aside>
+
+      {/* Right Content */}
+      <div className="flex flex-col flex-1 min-h-0 bg-special-mainBg">
+        <header className="flex justify-between items-center border-b border-gray-05 px-6 py-4">
+          <div className="flex items-center">
+            <div className="font-bold text-gray-01">{user.name}</div>
+
+            <div className="flex text-gray-03">
+              <span className="mx-1">&#xBB;</span>
+            </div>
+
+            <div className="text-sm text-gray-02">May 19, 2023</div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="me-10">
+              <NotificationsIcon className="text-primary scale-110" />
+            </div>
+
+            <Input
+              placeholder="Search..."
+              backgroundColor="bg-white"
+              border="border-white"
+            />
+          </div>
+        </header>
+
+        <main className="flex-1 min-h-0 px-6 py-6 overflow-auto">
+          {children}
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 
