@@ -4,7 +4,7 @@ import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useTheme } from "../../context/ThemeContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export default function DotsMobileStepper(props) {
   const { data } = props;
@@ -32,7 +32,9 @@ export default function DotsMobileStepper(props) {
         sx={{
           maxWidth: "400",
           flexGrow: 1,
-          "& .MuiMobileStepper-dot": { backgroundColor: "darkgray" },
+          "& .MuiMobileStepper-dot": {
+            backgroundColor: "darkgray",
+          },
           "& .MuiMobileStepper-dotActive": {
             backgroundColor: themeMode.color,
           },
@@ -53,7 +55,12 @@ export default function DotsMobileStepper(props) {
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}sx={{ color: "black" }}>
+          <Button
+            size="small"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+            sx={{ color: "black" }}
+          >
             {theme.direction === "rtl" ? (
               <KeyboardArrowRight />
             ) : (
