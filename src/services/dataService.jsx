@@ -6,7 +6,7 @@ export const goalService = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await axios.get(`${API_URL}/goalss`, {
+    const response = await axios.get(`${API_URL}/goals`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
