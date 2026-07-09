@@ -1,8 +1,6 @@
 describe("User login", () => {
   it("should allow user to log in with valid credentials", () => {
-    cy.viewport(375, 812);
-
-    cy.visit("http://localhost:5173/");
+    cy.visit("https://admin-ui-sand.vercel.app/");
 
     cy.url().should("include", "/login");
 
@@ -14,7 +12,7 @@ describe("User login", () => {
 
     cy.get("input#password")
       .should("be.visible")
-      .should("have.attr", "placeholder", "*************")
+      .should("have.attr", "placeholder", "●●●●●●●●●●●●●●")
       .type("123456")
       .should("have.value", "123456");
 
@@ -26,9 +24,7 @@ describe("User login", () => {
   });
 
   it("should not allow user to log in with invalid credentials", () => {
-    cy.viewport(550, 750);
-
-    cy.visit("http://localhost:5173/");
+    cy.visit("https://admin-ui-sand.vercel.app/");
 
     cy.url().should("include", "/login");
 
@@ -40,12 +36,12 @@ describe("User login", () => {
 
     cy.get("input#password")
       .should("be.visible")
-      .should("have.attr", "placeholder", "*************")
+      .should("have.attr", "placeholder", "●●●●●●●●●●●●●●")
       .type("123")
       .should("have.value", "123");
 
     cy.get("button").contains("Login").click();
 
     cy.get("div").contains("Wrong Password");
-  }); 
+  });
 });
