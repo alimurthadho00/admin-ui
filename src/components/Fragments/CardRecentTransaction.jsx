@@ -45,7 +45,7 @@ function CardRecentTransaction(props) {
                     <span className="text-gray-02">{item.shopName}</span>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-right mr-4">
                   <span className="text-xl font-bold text-gray-02">
                     ${item.amount}
                   </span>

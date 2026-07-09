@@ -2,6 +2,7 @@ import "./App.css";
 import SignInPage from "./pages/SignIn";
 import SignUpPage from "./pages/SignUp";
 import ErrorPage from "./pages/Error";
+import ExpensePage from "./pages/Expense";
 // import { Link } from "react-router-dom";
 import { useContext } from "react";
 import {
@@ -30,6 +31,14 @@ function App() {
         </RequireAuth>
       ),
       errorElement: <ErrorPage />,
+    },
+    {
+      path: "/expense",
+      element: (
+        <RequireAuth>
+          <ExpensePage />
+        </RequireAuth>
+      ),
     },
     {
       path: "/login",

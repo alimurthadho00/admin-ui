@@ -6,6 +6,7 @@ import {
 } from "@mui/x-charts/Gauge";
 import * as React from "react";
 import { ThemeContext } from "../../context/ThemeContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 function GaugePointer({ color }) {
   const { valueAngle, outerRadius, cx, cy } = useGaugeState();
@@ -33,6 +34,7 @@ function GaugePointer({ color }) {
 
 export default function CompositionExample({ value }) {
   const { theme } = React.useContext(ThemeContext);
+  const { darkMode } = React.useContext(DarkModeContext);
 
   console.log("Gauge value:", value);
 
@@ -45,7 +47,11 @@ export default function CompositionExample({ value }) {
       value={value}
       sx={{
         "& .value-arc": {
-          fill: theme.color || "#299D91",
+          fill: theme.color,
+        },
+
+        "& .MuiGauge-referenceArc": {
+          fill: darkMode ? "#4B5563" : "#E5E7EB",
         },
       }}
     >

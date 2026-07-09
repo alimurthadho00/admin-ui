@@ -4,6 +4,8 @@ import CheckBox from "../Elements/CheckBox";
 import LabeledInput from "../Elements/LabeledInput";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useContext } from "react";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
@@ -11,6 +13,7 @@ const SignInSchema = Yup.object().shape({
 });
 
 function FormSignIn({ onSubmit }) {
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <>
       {/* form start */}
@@ -62,7 +65,7 @@ function FormSignIn({ onSubmit }) {
                       id="password"
                       type="password"
                       label="Password"
-                      placeholder="*************"
+                      placeholder="●●●●●●●●●●●●●●"
                     />
                   )}
                 </Field>
@@ -95,9 +98,20 @@ function FormSignIn({ onSubmit }) {
       </div>
       {/* form end */}
       {/* teks start */}
-      <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
+      <div
+        className={`my-9 px-7 flex flex-col justify-center items-center text-xs ${
+          darkMode ? "text-gray-400" : "text-gray-03"
+        }`}
+      >
         <div className="border border-gray-05 w-full"></div>
-        <div className="bg-special-mainBg absolute px-2"> or sign in with</div>
+        <div
+          className={`absolute px-2 ${
+            darkMode ? "bg-zinc-900" : "bg-special-mainBg"
+          }`}
+        >
+          {" "}
+          or sign in with
+        </div>
       </div>
       {/* teks end */}
       {/* sign in with google start */}
@@ -136,7 +150,7 @@ function FormSignIn({ onSubmit }) {
       </div>
       {/* sign in with google end */}
       {/* link start */}
-      <div className="flex justify-center">
+      <div className={`flex justify-center ${darkMode ? "text-gray-300" : ""}`}>
         <Link to="/register" className="text-primary text-sm font-bold">
           Create an account
         </Link>

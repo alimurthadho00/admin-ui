@@ -8,18 +8,18 @@ import CardStatistics from "../components/Fragments/CardStatistics";
 import CardBalance from "../components/Fragments/CardBalance";
 import {
   transactions,
-  bills,
   expensesBreakdowns,
   balances,
   expensesStatistics,
 } from "../data";
+import { goalService, billService } from "../services/dataService";
 
-import { goalService } from "../services/dataService";
 import { AuthContext } from "../context/authContext";
 import AppSnackbar from "../components/Elements/AppSnackbar";
 
 function Dashboard() {
   const [goals, setGoals] = useState({});
+  const [bills, setBills] = useState([]);
   const { logout } = useContext(AuthContext);
 
   const [snackbar, setSnackbar] = useState({
@@ -47,9 +47,27 @@ function Dashboard() {
       }
     }
   };
+  const fetchBills = async () => {
+    try {
+      const data = await billService();
+      console.log(data);
+      setBills(data);
+    } catch (err) {
+      setSnackbar({
+        open: true,
+        message: "Gagal mengambil data bills",
+        severity: "error",
+      });
+
+      if (err.status === 401) {
+        logout();
+      }
+    }
+  };
 
   useEffect(() => {
     fetchGoals();
+    fetchBills();
   }, []);
 
   console.log(goals);

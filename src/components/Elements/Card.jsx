@@ -1,15 +1,31 @@
-import React from "react"; 
+import { useContext } from "react";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 function Card(props) {
   const { title, link = false, desc } = props;
+  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex justify-between items-center text-gray-02 mb-2">
-        <div className="text-2xl">{title}</div> 
-        {link && <div className="text-xs">View All</div>}
+      <div
+        className={`flex justify-between items-center mb-2 ${
+          darkMode ? "text-gray-300" : "text-gray-02"
+        }`}
+      >
+        <div className="text-2xl font-semibold">{title}</div>
+
+        {link && (
+          <div className="text-xs cursor-pointer hover:text-primary">
+            View All
+          </div>
+        )}
       </div>
-      <div className="flex-1 bg-white rounded-lg px-6 py-5 shadow-xl">
+
+      <div
+        className={`rounded-md shadow-sm transition-all duration-300 ${
+          darkMode ? "bg-zinc-900 text-white" : "bg-white"
+        }`}
+      >
         {desc}
       </div>
     </div>

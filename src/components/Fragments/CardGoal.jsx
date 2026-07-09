@@ -2,16 +2,29 @@ import Card from "../Elements/Card";
 import Icon from "../Elements/Icon";
 import CompositionExample from "../Elements/CompositionExample";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useContext } from "react";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 function CardGoal(props) {
   const { data } = props;
+  const { darkMode } = useContext(DarkModeContext);
   const chartValue = (data.present_amount / data.target_amount) * 100;
   const chartData = (
     <div className="p-2">
       <div className="flex justify-between items-center">
         <div className="flex">
-          <span className="text-2xl font-bold me-4">${data.target_amount}</span>
-          <div className="p-2 bg-gray-05 text-gray-01 rounded-md box-border">
+          <span
+            className={`text-2xl font-bold me-4 ${
+              darkMode ? "text-white" : "text-black"
+            }`}
+          >
+            ${data.target_amount}
+          </span>
+          <div
+            className={`p-2 rounded-md box-border ${
+              darkMode ? "bg-zinc-700 text-white" : "bg-gray-05 text-gray-01"
+            }`}
+          >
             <Icon.Edit size={16} />
           </div>
         </div>
@@ -20,20 +33,34 @@ function CardGoal(props) {
       <div className="border-b-2 border-gray-05 my-4"></div>
       <div className="flex justify-between">
         <div>
-          <div className="flex mt-3 mb-10 text-gray-01">
+          <div
+            className={`flex mt-3 mb-10 ${
+              darkMode ? "text-gray-300" : "text-gray-01"
+            }`}
+          >
             <Icon.Award />
             <div className="ms-2">
               <div>Target Achieved</div>
-              <div className="font-bold text-xl text-black">
+              <div
+                className={`font-bold text-xl ${
+                  darkMode ? "text-white" : "text-black"
+                }`}
+              >
                 ${data.present_amount}
               </div>
             </div>
           </div>
-          <div className="flex text-gray-01">
+          <div
+            className={`flex  ${darkMode ? "text-gray-300" : "text-gray-01"}`}
+          >
             <Icon.Target />
             <div className="ms-2">
               <div>This Month Target</div>
-              <div className="font-bold text-xl text-black">
+              <div
+                className={`font-bold text-xl ${
+                  darkMode ? "text-white" : "text-black"
+                }`}
+              >
                 ${data.target_amount}
               </div>
             </div>

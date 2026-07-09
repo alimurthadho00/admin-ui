@@ -1,30 +1,5 @@
 import Icon from "./components/Elements/Icon";
 
-export const bills = [
-  {
-    id: 1,
-    name: "Figma - Yearly Plan",
-    description:
-      "For advanced security and more flexible controls, the Proffesional plans help you scale design process company-wide.",
-    icon: <Icon.Figma />,
-    date: "15",
-    month: "May",
-    lastCharge: "2022-05-14",
-    amount: 150,
-  },
-  {
-    id: 2,
-    name: "Adobe Inc - Yearly Plan",
-    description:
-      "For advanced security and more flexible controls, the Proffesional plans help you scale design process company-wide.",
-    icon: <Icon.Adobe />,
-    date: "16",
-    month: "June",
-    lastCharge: "2022-06-17",
-    amount: 559,
-  },
-];
-
 export const expensesBreakdowns = [
   {
     id: 1,
@@ -32,7 +7,11 @@ export const expensesBreakdowns = [
     amount: 250,
     percentage: 15,
     icon: <Icon.House />,
-    arrow: <Icon.ArrowUp />,
+    arrow: (
+      <div className="text-special-red">
+        <Icon.ArrowUp size={16} />
+      </div>
+    ),
   },
   {
     id: 2,
@@ -40,7 +19,11 @@ export const expensesBreakdowns = [
     amount: 350,
     percentage: 8,
     icon: <Icon.Food />,
-    arrow: <Icon.ArrowDown />,
+    arrow: (
+      <div className="text-special-green">
+        <Icon.ArrowDown size={16} />
+      </div>
+    ),
   },
   {
     id: 3,
@@ -48,7 +31,11 @@ export const expensesBreakdowns = [
     amount: 50,
     percentage: 12,
     icon: <Icon.Transport />,
-    arrow: <Icon.ArrowDown />,
+    arrow: (
+      <div className="text-special-green">
+        <Icon.ArrowDown size={16} />
+      </div>
+    ),
   },
   {
     id: 4,
@@ -56,7 +43,11 @@ export const expensesBreakdowns = [
     amount: 80,
     percentage: 15,
     icon: <Icon.Gamepad />,
-    arrow: <Icon.ArrowDown />,
+    arrow: (
+      <div className="text-special-green">
+        <Icon.ArrowDown size={16} />
+      </div>
+    ),
   },
   {
     id: 5,
@@ -64,7 +55,11 @@ export const expensesBreakdowns = [
     amount: 420,
     percentage: 25,
     icon: <Icon.Shopping />,
-    arrow: <Icon.ArrowUp />,
+    arrow: (
+      <div className="text-special-red">
+        <Icon.ArrowUp size={16} />
+      </div>
+    ),
   },
   {
     id: 6,
@@ -72,7 +67,11 @@ export const expensesBreakdowns = [
     amount: 650,
     percentage: 23,
     icon: <Icon.Other />,
-    arrow: <Icon.ArrowUp />,
+    arrow: (
+      <div className="text-special-red">
+        <Icon.ArrowUp size={16} />
+      </div>
+    ),
   },
 ];
 
@@ -227,7 +226,7 @@ export const balances = [
     accountType: "Credit Card",
     accountNumber: "3388 4556 8860 80000",
     balance: 25000,
-    logo: <Icon.Mastercard width={40}/>,
+    logo: <Icon.Mastercard width={40} />,
   },
   {
     id: 2,
@@ -236,7 +235,7 @@ export const balances = [
     accountType: "Checking",
     accountNumber: "693 456 69 90000",
     balance: 25000,
-    logo: <Icon.Visa width={40}/>,
+    logo: <Icon.Visa width={40} />,
   },
   {
     id: 3,
